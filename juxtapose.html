@@ -56,20 +56,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Ensures image is clipped within this container */
+            /* overflow: hidden; Removed, now handled by clip-path on the 'after' container */
         }
         .juxtapose-image-container img {
-            display: block; /* Remove extra space below img */
+            display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures the image covers the container without distortion */
-            object-position: center; /* Centers the image within its bounds */
-            position: absolute; /* Important: makes img independent of container width, allowing proper clipping */
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
             top: 0;
             left: 0;
         }
         .juxtapose-image-container.after {
             z-index: 2; /* Ensure 'after' image is on top for clipping */
+            /* Initial clip-path, will be updated by JS */
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
         }
         .juxtapose-image-container.before {
             z-index: 1; /* 'Before' image is underneath */
@@ -148,8 +150,12 @@
         }
 
         function updateJuxtapose(x) {
+            const wrapperWidth = wrapper.clientWidth;
+            const percentage = (x / wrapperWidth) * 100;
+
             handle.style.left = `${x}px`;
-            afterImageContainer.style.width = `${x}px`;
+            // Používáme clip-path pro zobrazení/skrytí části obrázku
+            afterImageContainer.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
         }
 
         wrapper.addEventListener('mousedown', (e) => {
