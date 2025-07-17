@@ -59,22 +59,24 @@
             margin-top: 30px;
         }
         .main-button {
-            background-color: #4285f4;
-            color: white;
+            background-color: rgba(255, 255, 255, 0.9); /* Průhlednější bílé pozadí */
+            backdrop-filter: blur(10px); /* Efekt rozostření */
+            color: #1a73e8; /* Text modrý, aby vynikl */
             padding: 15px 10px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             text-decoration: none; /* Pro odkazy */
             display: block; /* Aby se chovaly jako blokové prvky */
         }
         .main-button:hover {
-            background-color: #357ae8;
+            background-color: rgba(255, 255, 255, 0.95); /* Mírně méně průhledné při najetí */
             transform: translateY(-2px);
+            color: #0f4a7b; /* Tmavší modrá při najetí */
         }
         .main-button:active {
             transform: translateY(0);
