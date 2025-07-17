@@ -50,26 +50,35 @@
             cursor: ew-resize;
             overflow: hidden;
         }
-        .juxtapose-image {
+        .juxtapose-image-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            overflow: hidden; /* Ensures image is clipped within this container */
         }
-        .juxtapose-image.before {
-            z-index: 1;
+        .juxtapose-image-container img {
+            display: block; /* Remove extra space below img */
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container without distortion */
+            object-position: center; /* Centers the image within its bounds */
+            position: absolute; /* Important: makes img independent of container width, allowing proper clipping */
+            top: 0;
+            left: 0;
         }
-        .juxtapose-image.after {
-            z-index: 2;
+        .juxtapose-image-container.after {
+            z-index: 2; /* Ensure 'after' image is on top for clipping */
         }
+        .juxtapose-image-container.before {
+            z-index: 1; /* 'Before' image is underneath */
+        }
+
         .juxtapose-handle {
             position: absolute;
             top: 0;
-            left: 50%;
+            left: 50%; /* Initial position */
             width: 4px;
             height: 100%;
             background-color: #4285f4;
@@ -103,15 +112,19 @@
     <div class="container">
         <h1>Juxtapose Mapa</h1>
         <div class="juxtapose-wrapper" id="juxtaposeMap">
-            <div class="juxtapose-image before" style="background-image: url('1.png');"></div>
-            <div class="juxtapose-image after" style="background-image: url('2.png');"></div>
+            <div class="juxtapose-image-container before">
+                <img src="1.png" alt="Obrázek před">
+            </div>
+            <div class="juxtapose-image-container after">
+                <img src="2.png" alt="Obrázek po">
+            </div>
             <div class="juxtapose-handle"></div>
         </div>
     </div>
 
     <script>
         const wrapper = document.getElementById('juxtaposeMap');
-        const afterImage = wrapper.querySelector('.juxtapose-image.after');
+        const afterImageContainer = wrapper.querySelector('.juxtapose-image-container.after');
         const handle = wrapper.querySelector('.juxtapose-handle');
 
         let isDragging = false;
@@ -136,7 +149,7 @@
 
         function updateJuxtapose(x) {
             handle.style.left = `${x}px`;
-            afterImage.style.width = `${x}px`;
+            afterImageContainer.style.width = `${x}px`;
         }
 
         wrapper.addEventListener('mousedown', (e) => {
