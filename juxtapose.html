@@ -21,6 +21,7 @@
             min-height: 100vh;
             box-sizing: border-box;
             overflow: hidden; /* Prevent scrollbar from the slider */
+            position: relative; /* Pro pozicování tlačítka Zpět */
         }
         .container {
             width: 90%;
@@ -111,6 +112,34 @@
             border-width: 10px 0 10px 10px;
             border-color: transparent transparent transparent #4285f4;
         }
+        /* Styl pro tlačítko Zpět */
+        .back-button {
+            position: fixed; /* Pevná pozice na obrazovce */
+            bottom: 20px; /* 20px odspodu */
+            right: 20px; /* 20px zprava */
+            background-color: rgba(255, 255, 255, 0.9); /* Průhlednější bílé pozadí */
+            backdrop-filter: blur(10px); /* Efekt rozostření */
+            color: #1a73e8; /* Text modrý, aby vynikl */
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none; /* Pro odkazy */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            z-index: 1000; /* Zajistí, že je tlačítko nad ostatním obsahem */
+        }
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+            color: #0f4a7b;
+        }
+        .back-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -127,6 +156,8 @@
         </div>
     </div>
 
+    <a href="./index.html" class="back-button">Zpět</a>
+
     <script>
         const wrapper = document.getElementById('juxtaposeMap');
         const afterImageContainer = wrapper.querySelector('.juxtapose-image-container.after');
@@ -136,6 +167,8 @@
 
         function onDrag(e) {
             if (!isDragging) return;
+
+            e.preventDefault(); // Zabrání výchozímu chování (např. posouvání stránky na dotykových zařízeních)
 
             let clientX = e.clientX;
             // For touch events
