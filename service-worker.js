@@ -8,6 +8,10 @@ const urlsToCache = [
   './logo.png', // Logo pro úvodní stránku
   './pozadi.jpg', // Pozadí pro obě stránky
   './manifest.json',
+  './icons/icon-192x192.png'
+  './icons/icon-512x512.png'
+  './ramecek1.png',
+  './ramecek2.png',
   // Pokud byste měli ikony pro PWA, přidejte je zde:
   // './icons/icon-192x192.png',
   // './icons/icon-512x512.png'
