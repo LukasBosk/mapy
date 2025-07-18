@@ -65,7 +65,7 @@
             gap: 20px;
             position: relative;
             overflow: hidden; /* For the juxtapose effect */
-            flex-grow: 1; /* Povolí kontejneru, aby se roztáhl */
+            /* ZMĚNĚNO: Odstraněno flex-grow: 1; */
             max-height: calc(100vh - 200px); /* Maximální výška na základě výšky obrazovky (přibližná mezera pro header/footer) */
             height: auto; /* Dovolí výšce, aby se přizpůsobila obsahu */
         }
@@ -73,7 +73,7 @@
             position: relative;
             width: 100%;
             height: auto; /* Dovolí výšce, aby se přizpůsobila aspect-ratio */
-            aspect-ratio: 1682 / 1144; /* ZMĚNĚNO: Přesný poměr stran obrázků (šířka / výška) */
+            aspect-ratio: 1682 / 1144; /* Přesný poměr stran obrázků (šířka / výška) */
             min-height: 300px; /* Minimální výška, aby se příliš nezmenšil */
             cursor: ew-resize;
             overflow: hidden;
