@@ -38,7 +38,7 @@
         }
         .header h1 {
             color: white; /* Barva nadpisu bílá */
-            font-size: 1.35em; /* ZMĚNĚNO: Menší velikost písma nadpisu (75% z 1.8em) */
+            font-size: 1.35em; /* Menší velikost písma nadpisu (75% z 1.8em) */
             margin: 0; /* Odstranění výchozího marginu h1 */
         }
         @media (max-width: 600px) { /* Přizpůsobení pro menší obrazovky */
@@ -54,9 +54,9 @@
 
         .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 600px; /* Zmenšena maximální šířka */
             background-color: rgba(255, 255, 255, 0.5); /* Původně #fff, nyní 50% průhledné bílé */
-            padding: 25px;
+            padding: 10px; /* Zmenšeno vnitřní odsazení */
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             text-align: center;
@@ -73,7 +73,7 @@
             position: relative;
             width: 100%;
             height: auto; /* Dovolí výšce, aby se přizpůsobila aspect-ratio */
-            aspect-ratio: 2 / 3; /* Poměr stran obrázku */
+            aspect-ratio: 1682 / 1144; /* ZMĚNĚNO: Přesný poměr stran obrázků (šířka / výška) */
             min-height: 300px; /* Minimální výška, aby se příliš nezmenšil */
             cursor: ew-resize;
             overflow: hidden;
