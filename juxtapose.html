@@ -65,7 +65,7 @@
             grid-template-areas:
                 ".       juxtapose-area ." /* Juxtapose uprostřed */
                 "frame1-area .          frame2-area"; /* Rámečky vedle sebe pod juxtapose */
-            grid-template-columns: 1fr auto 1fr; /* Flexibilní vnější sloupce, auto pro obsah uprostřed */
+            grid-template-columns: 1fr 2fr 1fr; /* ZMĚNĚNO: Větší podíl pro juxtapose */
             grid-template-rows: auto auto; /* Dva řádky */
         }
 
@@ -159,15 +159,15 @@
             flex-shrink: 0;
             flex-grow: 1;
             width: 100%; /* Vyplní svou grid buňku */
-            max-width: 200px; /* Max. šířka pro zobrazení na výšku */
+            max-width: 250px; /* ZMĚNĚNO: Větší max. šířka pro rámečky na výšku */
         }
         .ramecek1-img {
             grid-area: frame1-area; /* Přiřadí se do grid oblasti */
-            justify-self: end; /* Zarovná doprava ve své buňce (pro odsazení od juxtapose) */
+            /* justify-self: end; - ODSTRANĚNO pro centrování pod juxtapose */
         }
         .ramecek2-img {
             grid-area: frame2-area; /* Přiřadí se do grid oblasti */
-            justify-self: start; /* Zarovná doleva ve své buňce */
+            /* justify-self: start; - ODSTRANĚNO pro centrování pod juxtapose */
         }
 
 
@@ -185,12 +185,12 @@
             }
             /* Upraví velikost juxtapose boxu v landscape */
             .juxtapose-styled-box {
-                max-width: 75vw; /* Zvětšená max. šířka pro juxtapose */
+                max-width: 80vw; /* ZMĚNĚNO: Větší max. šířka pro juxtapose v landscape */
                 min-width: 300px;
             }
             /* Upraví velikost rámečků v landscape */
             .ramecek-img {
-                max-width: 250px; /* Zvětšená max. šířka pro rámečky na bocích */
+                max-width: 220px; /* ZMĚNĚNO: Menší max. šířka pro rámečky v landscape */
             }
         }
 
