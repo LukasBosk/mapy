@@ -65,7 +65,7 @@
             grid-template-areas:
                 ".       juxtapose-area ." /* Juxtapose uprostřed */
                 "frame1-area .          frame2-area"; /* Rámečky vedle sebe pod juxtapose */
-            grid-template-columns: auto 1fr auto; /* ZMĚNĚNO: auto columns for rameceks, 1fr for juxtapose */
+            grid-template-columns: auto 1fr auto; /* auto columns for rameceks, 1fr for juxtapose */
             grid-template-rows: auto auto; /* Dva řádky */
         }
 
@@ -73,7 +73,7 @@
         .juxtapose-styled-box {
             grid-area: juxtapose-area; /* Přiřadí se do grid oblasti */
             width: 100%; /* Vyplní svou grid buňku */
-            max-width: none; /* ZMĚNĚNO: Umožní juxtapose expandovat víc s 1fr v portrait */
+            max-width: none; /* Umožní juxtapose expandovat víc s 1fr v portrait */
             background-color: rgba(255, 255, 255, 0.5); /* Poloprůhledné bílé pozadí */
             padding: 25px; /* Zřetelné odsazení pro rámeček */
             border-radius: 12px;
@@ -156,18 +156,18 @@
         .ramecek-img {
             height: auto;
             object-fit: contain;
-            flex-shrink: 0; /* ZMĚNĚNO: Zabraňuje zmenšování obrázku pod max-width */
-            flex-grow: 0; /* ZMĚNĚNO: Zabraňuje roztahování obrázku */
-            width: auto; /* ZMĚNĚNO: Umožňuje auto šířku až do max-width */
-            max-width: 350px; /* ZMĚNĚNO: Větší max. šířka pro rámečky na výšku */
+            flex-shrink: 0; /* Zabraňuje zmenšování obrázku pod max-width */
+            flex-grow: 0; /* Zabraňuje roztahování obrázku */
+            width: auto; /* Umožňuje auto šířku až do max-width */
+            max-width: 250px; /* ZMĚNĚNO: Menší max. šířka pro rámečky na výšku */
         }
         .ramecek1-img {
             grid-area: frame1-area; /* Přiřadí se do grid oblasti */
-            justify-self: start; /* ZNOVU PŘIDÁNO: Zarovná se doleva v rámci své buňky */
+            justify-self: start; /* Zarovná se doleva v rámci své buňky */
         }
         .ramecek2-img {
             grid-area: frame2-area; /* Přiřadí se do grid oblasti */
-            justify-self: end; /* ZNOVU PŘIDÁNO: Zarovná se doprava v rámci své buňky */
+            justify-self: end; /* Zarovná se doprava v rámci své buňky */
         }
 
 
