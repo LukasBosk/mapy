@@ -23,6 +23,35 @@
             overflow: hidden; /* Prevent scrollbar from the slider */
             position: relative; /* Pro pozicování tlačítka Zpět */
         }
+        /* NOVÝ STYL PRO HLAVIČKU S LOGEM A NADPISEM */
+        .header {
+            display: flex;
+            align-items: center; /* Zarovná položky vertikálně na střed */
+            justify-content: center; /* Zarovná položky horizontálně na střed */
+            margin-bottom: 20px; /* Mezera pod hlavičkou */
+            flex-wrap: wrap; /* Umožní zalomení na menších obrazovkách */
+            text-align: center; /* Záložní zarovnání textu */
+        }
+        .header img {
+            height: 60px; /* Velikost loga, upravte dle potřeby */
+            margin-right: 15px; /* Mezera mezi logem a nadpisem */
+        }
+        .header h1 {
+            color: white; /* Barva nadpisu bílá */
+            font-size: 1.8em; /* Menší velikost písma nadpisu, upravte dle potřeby */
+            margin: 0; /* Odstranění výchozího marginu h1 */
+        }
+        @media (max-width: 600px) { /* Přizpůsobení pro menší obrazovky */
+            .header {
+                flex-direction: column; /* Položky pod sebou */
+            }
+            .header img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+        /* Konec nového stylu pro hlavičku */
+
         .container {
             width: 90%;
             max-width: 900px;
@@ -38,12 +67,13 @@
             overflow: hidden; /* For the juxtapose effect */
             height: 600px; /* Fixed height for the map container */
         }
-        h1 {
+        /* PŮVODNÍ STYL h1 ODSTRANĚN, PROTOŽE JE NYNÍ ŘÍZEN .header h1 */
+        /* h1 {
             color: #1a73e8;
             font-size: 2em;
             font-weight: bold;
             margin-bottom: 20px;
-        }
+        } */
         .juxtapose-wrapper {
             position: relative;
             width: 100%;
@@ -144,8 +174,10 @@
     </style>
 </head>
 <body>
+    <div class="header"> <img src="./logo.png" alt="Logo Muzea regionu Boskovicka">
+        <h1>Vývoj osídlení mladší/pozdní doba bronzová</h1> </div>
+
     <div class="container">
-        <h1>Vývoj osídlení mladší/pozdní doba bronzová</h1>
         <div class="juxtapose-wrapper" id="juxtaposeMap">
             <div class="juxtapose-image-container before">
                 <img src="1.png" alt="Obrázek před">
@@ -161,7 +193,7 @@
 
     <script>
         const wrapper = document.getElementById('juxtaposeMap');
-        const beforeImageContainer = wrapper.querySelector('.juxtapose-image-container.before'); // NOVĚ: Reference na "předchozí" obrázek
+        const beforeImageContainer = wrapper.querySelector('.juxtapose-image-container.before');
         const afterImageContainer = wrapper.querySelector('.juxtapose-image-container.after');
         const handle = wrapper.querySelector('.juxtapose-handle');
 
@@ -170,10 +202,9 @@
         function onDrag(e) {
             if (!isDragging) return;
 
-            e.preventDefault(); // Zabrání výchozímu chování (např. posouvání stránky na dotykových zařízeních)
+            e.preventDefault();
 
             let clientX = e.clientX;
-            // For touch events
             if (e.touches && e.touches.length > 0) {
                 clientX = e.touches[0].clientX;
             }
@@ -181,7 +212,6 @@
             const wrapperRect = wrapper.getBoundingClientRect();
             let newX = clientX - wrapperRect.left;
 
-            // Constrain the handle within the wrapper
             newX = Math.max(0, Math.min(newX, wrapperRect.width));
 
             updateJuxtapose(newX);
@@ -192,14 +222,13 @@
             const percentage = (x / wrapperWidth) * 100;
 
             handle.style.left = `${x}px`;
-            // ZMĚNĚNO: Nová logika pro clip-path, aby 1.png byl vlevo od táhla a 2.png vpravo
-            beforeImageContainer.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`; // 1.png viditelný vlevo od táhla
-            afterImageContainer.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`; // 2.png viditelný vpravo od táhla
+            beforeImageContainer.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+            afterImageContainer.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
         }
 
         wrapper.addEventListener('mousedown', (e) => {
             isDragging = true;
-            onDrag(e); // Update position immediately on click
+            onDrag(e);
         });
         wrapper.addEventListener('touchstart', (e) => {
             isDragging = true;
@@ -216,10 +245,8 @@
             isDragging = false;
         });
 
-        // Initialize position
-        updateJuxtapose(wrapper.clientWidth / 2); // Initial position for handle and clipping
+        updateJuxtapose(wrapper.clientWidth / 2);
 
-        // Adjust on resize
         window.addEventListener('resize', () => {
             updateJuxtapose(wrapper.clientWidth / 2);
         });
