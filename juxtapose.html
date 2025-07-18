@@ -51,46 +51,39 @@
             }
         }
 
-        /* Container for background, padding, shadow */
-        .container {
-            width: 90%;
-            max-width: 900px; /* Ponechána původní max. šířka pro portrét */
-            /* ZMĚNĚNO: Vizuální styly vráceny na .container */
+        /* Nový hlavní kontejner pro rozložení obsahu (CSS Grid) */
+        .main-content-layout {
+            display: grid;
+            width: 100%;
+            max-width: 1200px; /* Zvětšena celková maximální šířka obsahu */
+            box-sizing: border-box;
+            gap: 20px; /* Mezera mezi grid prvky */
+            justify-items: center; /* Vycentruje položky horizontálně v rámci jejich buněk */
+            align-items: start; /* Zarovná položky k hornímu okraji buňky pro vertikální skládání */
+
+            /* Rozložení na výšku (výchozí) */
+            grid-template-areas:
+                ".       juxtapose-area ." /* Juxtapose uprostřed */
+                "frame1-area .          frame2-area"; /* Rámečky vedle sebe pod juxtapose */
+            grid-template-columns: 1fr auto 1fr; /* Flexibilní vnější sloupce, auto pro obsah uprostřed */
+            grid-template-rows: auto auto; /* Dva řádky */
+        }
+
+        /* Box s rámečkem, nyní pouze pro juxtapose */
+        .juxtapose-styled-box {
+            grid-area: juxtapose-area; /* Přiřadí se do grid oblasti */
+            width: 100%; /* Vyplní svou grid buňku */
+            max-width: 900px; /* Max. šířka pro zobrazení na výšku */
             background-color: rgba(255, 255, 255, 0.5); /* Poloprůhledné bílé pozadí */
-            padding: 25px; /* Zvětšené odsazení pro zřetelný rámeček */
+            padding: 25px; /* Zřetelné odsazení pro rámeček */
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            display: flex; /* Bude flex kontejnerem pro centrování gridu */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            box-sizing: border-box; /* Zahrnuje padding do šířky/výšky */
         }
 
-        /* Hlavní obal pro juxtapose a rámečky - nyní jako CSS Grid */
-        .content-layout-wrapper {
-            display: grid;
-            width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            
-            /* Výchozí (Portrét) rozložení */
-            grid-template-areas:
-                "juxtapose juxtapose"
-                "frame1 frame2";
-            grid-template-columns: 1fr 1fr; /* Dva sloupce pro rámečky pod juxtapose */
-            grid-template-rows: auto auto; /* Dva řádky */
-            gap: 15px; /* Mezera pro portrét */
-            column-gap: 10px; /* Mezera mezi rámečky v jednom řádku */
-            justify-items: center; /* Vycentruje položky horizontálně v rámci jejich buňek */
-            align-items: start; /* Zarovná položky k hornímu okraji buňky */
-        }
-
-        /* Umístění prvků do Grid Area */
+        /* Styl pro samotný juxtapose posuvník uvnitř jeho boxu */
         .juxtapose-wrapper {
-            grid-area: juxtapose;
             position: relative;
             width: 100%;
             height: auto;
@@ -99,12 +92,6 @@
             cursor: ew-resize;
             overflow: hidden;
             outline: none;
-
-            /* ZMĚNĚNO: Odebrány vizuální styly - nyní jsou na .container */
-            /* background-color: rgba(255, 255, 255, 0.5); */
-            /* padding: 15px; */
-            /* border-radius: 12px; */
-            /* box-shadow: 0 4px 20px rgba(0,0,0,0.1); */
         }
         .juxtapose-wrapper:focus {
             outline: none;
@@ -165,50 +152,45 @@
             border-color: transparent transparent transparent #4285f4;
         }
 
-        /* Styly pro obrázky rámečků */
+        /* Styly pro obrázky rámečků (nejsou v rámečku s juxtapose) */
         .ramecek-img {
             height: auto;
             object-fit: contain;
             flex-shrink: 0;
             flex-grow: 1;
-            width: 100%; /* Důležité pro grid */
-            max-width: 200px; /* Omezení max. šířky obrázků v portrétu (zmenšení) */
+            width: 100%; /* Vyplní svou grid buňku */
+            max-width: 200px; /* Max. šířka pro zobrazení na výšku */
         }
         .ramecek1-img {
-            grid-area: frame1;
-            justify-self: start; /* Zarovná doleva v buňce gridu */
+            grid-area: frame1-area; /* Přiřadí se do grid oblasti */
+            justify-self: end; /* Zarovná doprava ve své buňce (pro odsazení od juxtapose) */
         }
         .ramecek2-img {
-            grid-area: frame2;
-            justify-self: end; /* Zarovná doprava v buňce gridu */
+            grid-area: frame2-area; /* Přiřadí se do grid oblasti */
+            justify-self: start; /* Zarovná doleva ve své buňce */
         }
 
-        /* Landscape orientation */
+
+        /* Rozložení na šířku (Landscape orientation) */
         @media (orientation: landscape) {
-            .content-layout-wrapper {
+            .main-content-layout {
                 grid-template-areas:
-                    "frame1 juxtapose frame2"; /* Rozložení pro landscape */
+                    "frame1-area juxtapose-area frame2-area"; /* Rámeček vlevo, Juxtapose uprostřed, Rámeček vpravo */
                 grid-template-columns: auto 1fr auto; /* auto pro rámečky, 1fr pro juxtapose */
                 grid-template-rows: 1fr; /* Jeden řádek */
-                gap: 30px; /* ZMĚNĚNO: Zvětšená mezera pro landscape */
+                gap: 40px; /* Zvětšená mezera pro landscape */
                 align-items: center; /* Vertikálně vycentruje prvky */
-                justify-items: center; /* Horizontálně vycentruje prvky v buňkách */
-            }
-            /* Upraví kontejner pro landscape */
-            .container {
-                max-width: 95vw; /* Dovolí širší využití obrazovky */
+                max-width: 95vw; /* Přizpůsobí se šířce obrazovky */
                 max-height: calc(100vh - 40px); /* Omezí celkovou výšku v landscape */
-                width: auto;
-                height: auto;
             }
-            /* Upraví velikost juxtapose-wrapper v landscape */
-            .juxtapose-wrapper {
-                max-width: 75vw; /* ZMĚNĚNO: Větší max. šířka pro juxtapose */
+            /* Upraví velikost juxtapose boxu v landscape */
+            .juxtapose-styled-box {
+                max-width: 75vw; /* Zvětšená max. šířka pro juxtapose */
                 min-width: 300px;
             }
             /* Upraví velikost rámečků v landscape */
             .ramecek-img {
-                max-width: 200px; /* ZMĚNĚNO: Větší max. šířka pro rámečky na bocích */
+                max-width: 250px; /* Zvětšená max. šířka pro rámečky na bocích */
             }
         }
 
@@ -248,8 +230,10 @@
         <h1>Vývoj osídlení mladší/pozdní doba bronzová</h1>
     </div>
 
-    <div class="container">
-        <div class="content-layout-wrapper">
+    <div class="main-content-layout">
+        <img src="ramecek1.png" alt="Ramecek 1" class="ramecek-img ramecek1-img">
+
+        <div class="juxtapose-styled-box">
             <div class="juxtapose-wrapper" id="juxtaposeMap">
                 <div class="juxtapose-image-container before">
                     <img src="1.png" alt="Obrázek před">
@@ -259,9 +243,9 @@
                 </div>
                 <div class="juxtapose-handle"></div>
             </div>
-            <img src="ramecek1.png" alt="Ramecek 1" class="ramecek-img ramecek1-img">
-            <img src="ramecek2.png" alt="Ramecek 2" class="ramecek-img ramecek2-img">
         </div>
+
+        <img src="ramecek2.png" alt="Ramecek 2" class="ramecek-img ramecek2-img">
     </div>
 
     <a href="./index.html" class="back-button">Zpět</a>
