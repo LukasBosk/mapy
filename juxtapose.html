@@ -61,17 +61,17 @@
             justify-items: center; /* Vycentruje položky horizontálně v rámci jejich buněk */
             align-items: start; /* Zarovná položky k hornímu okraji buňky pro vertikální skládání */
 
-            /* Rozložení na výšku (výchozí) */
-            grid-template-areas:
-                ".       juxtapose-area ." /* Juxtapose uprostřed */
-                "frame1-area .          frame2-area"; /* Rámečky vedle sebe pod juxtapose */
-            grid-template-columns: auto 1fr auto; /* auto columns for rameceks, 1fr for juxtapose */
+            /* Rozložení na výšku (výchozí) - ZMĚNĚNO pro 2 sloupce */
+            grid-template-columns: 1fr 1fr; /* Dva rovnocenné sloupce */
             grid-template-rows: auto auto; /* Dva řádky */
+            /* grid-template-areas pro portrait zde nebudou použity, nahradí je explicitní grid-column/row */
         }
 
         /* Box s rámečkem, nyní pouze pro juxtapose */
         .juxtapose-styled-box {
-            grid-area: juxtapose-area; /* Přiřadí se do grid oblasti */
+            /* grid-area: juxtapose-area; */ /* ODEBRÁNO pro portrait */
+            grid-column: 1 / 3; /* ZMĚNĚNO: Spojí oba sloupce pro juxtapose v portrait */
+            grid-row: 1 / 2; /* ZMĚNĚNO: Umístí do prvního řádku */
             width: 100%; /* Vyplní svou grid buňku */
             max-width: none; /* Umožní juxtapose expandovat víc s 1fr v portrait */
             background-color: rgba(255, 255, 255, 0.5); /* Poloprůhledné bílé pozadí */
@@ -159,15 +159,19 @@
             flex-shrink: 0; /* Zabraňuje zmenšování obrázku pod max-width */
             flex-grow: 0; /* Zabraňuje roztahování obrázku */
             width: auto; /* Umožňuje auto šířku až do max-width */
-            max-width: 250px; /* ZMĚNĚNO: Menší max. šířka pro rámečky na výšku */
+            max-width: 180px; /* ZMĚNĚNO: Ještě menší max. šířka pro rámečky na výšku */
         }
         .ramecek1-img {
-            grid-area: frame1-area; /* Přiřadí se do grid oblasti */
-            justify-self: start; /* Zarovná se doleva v rámci své buňky */
+            /* grid-area: frame1-area; */ /* ODEBRÁNO pro portrait */
+            grid-column: 1 / 2; /* ZMĚNĚNO: Umístí do levého sloupce v portrait */
+            grid-row: 2 / 3; /* ZMĚNĚNO: Umístí do druhého řádku */
+            justify-self: end; /* Zarovná se doprava v rámci své buňky (levý rámeček se zarovná k vnitřní hraně) */
         }
         .ramecek2-img {
-            grid-area: frame2-area; /* Přiřadí se do grid oblasti */
-            justify-self: end; /* Zarovná se doprava v rámci své buňky */
+            /* grid-area: frame2-area; */ /* ODEBRÁNO pro portrait */
+            grid-column: 2 / 3; /* ZMĚNĚNO: Umístí do pravého sloupce v portrait */
+            grid-row: 2 / 3; /* ZMĚNĚNO: Umístí do druhého řádku */
+            justify-self: start; /* Zarovná se doleva v rámci své buňky (pravý rámeček se zarovná k vnitřní hraně) */
         }
 
 
@@ -185,12 +189,27 @@
             }
             /* Upraví velikost juxtapose boxu v landscape */
             .juxtapose-styled-box {
-                max-width: 90vw; /* ZMĚNĚNO: Větší max. šířka pro juxtapose v landscape */
+                grid-area: juxtapose-area; /* ZNOVU PŘIDÁNO/ZACHOVÁNO pro landscape */
+                grid-column: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+                grid-row: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+                max-width: 90vw; /* Větší max. šířka pro juxtapose v landscape */
                 min-width: 300px;
             }
             /* Upraví velikost rámečků v landscape */
             .ramecek-img {
                 max-width: 220px; /* Menší max. šířka pro rámečky v landscape (dle přání beze změn) */
+            }
+            .ramecek1-img {
+                grid-area: frame1-area; /* ZNOVU PŘIDÁNO/ZACHOVÁNO pro landscape */
+                grid-column: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+                grid-row: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+                justify-self: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+            }
+            .ramecek2-img {
+                grid-area: frame2-area; /* ZNOVU PŘIDÁNO/ZACHOVÁNO pro landscape */
+                grid-column: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+                grid-row: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
+                justify-self: unset; /* ZRUŠÍ předchozí nastavení pro portrait */
             }
         }
 
