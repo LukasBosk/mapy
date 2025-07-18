@@ -65,7 +65,7 @@
             grid-template-areas:
                 ".       juxtapose-area ." /* Juxtapose uprostřed */
                 "frame1-area .          frame2-area"; /* Rámečky vedle sebe pod juxtapose */
-            grid-template-columns: 0.1fr 1fr 0.1fr; /* ZMĚNĚNO: Větší podíl pro juxtapose v portrait */
+            grid-template-columns: auto 1fr auto; /* ZMĚNĚNO: auto columns for rameceks, 1fr for juxtapose */
             grid-template-rows: auto auto; /* Dva řádky */
         }
 
@@ -156,16 +156,18 @@
         .ramecek-img {
             height: auto;
             object-fit: contain;
-            flex-shrink: 0;
-            flex-grow: 1;
-            width: 100%; /* Vyplní svou grid buňku */
-            max-width: 300px; /* ZMĚNĚNO: Větší max. šířka pro rámečky na výšku */
+            flex-shrink: 0; /* ZMĚNĚNO: Zabraňuje zmenšování obrázku pod max-width */
+            flex-grow: 0; /* ZMĚNĚNO: Zabraňuje roztahování obrázku */
+            width: auto; /* ZMĚNĚNO: Umožňuje auto šířku až do max-width */
+            max-width: 350px; /* ZMĚNĚNO: Větší max. šířka pro rámečky na výšku */
         }
         .ramecek1-img {
             grid-area: frame1-area; /* Přiřadí se do grid oblasti */
+            justify-self: start; /* ZNOVU PŘIDÁNO: Zarovná se doleva v rámci své buňky */
         }
         .ramecek2-img {
             grid-area: frame2-area; /* Přiřadí se do grid oblasti */
+            justify-self: end; /* ZNOVU PŘIDÁNO: Zarovná se doprava v rámci své buňky */
         }
 
 
@@ -183,12 +185,12 @@
             }
             /* Upraví velikost juxtapose boxu v landscape */
             .juxtapose-styled-box {
-                max-width: 80vw; /* ZMĚNĚNO: Větší max. šířka pro juxtapose v landscape */
+                max-width: 90vw; /* ZMĚNĚNO: Větší max. šířka pro juxtapose v landscape */
                 min-width: 300px;
             }
             /* Upraví velikost rámečků v landscape */
             .ramecek-img {
-                max-width: 220px; /* ZMĚNĚNO: Menší max. šířka pro rámečky v landscape */
+                max-width: 220px; /* Menší max. šířka pro rámečky v landscape (dle přání beze změn) */
             }
         }
 
