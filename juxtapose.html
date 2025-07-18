@@ -51,19 +51,19 @@
             }
         }
 
-        /* Container for overall max-width and centering of the content layout */
+        /* Container for background, padding, shadow */
         .container {
             width: 90%;
-            max-width: 900px; /* Původní maximální šířka pro portrét */
-            /* ZMĚNĚNO: Odstraněny vizuální styly, které se přesunuly na .juxtapose-wrapper */
-            /* background-color: rgba(255, 255, 255, 0.5); */
-            /* padding: 10px; */
-            /* border-radius: 12px; */
-            /* box-shadow: 0 4px 20px rgba(0,0,0,0.1); */
+            max-width: 900px; /* Ponechána původní max. šířka pro portrét */
+            /* ZMĚNĚNO: Vizuální styly vráceny na .container */
+            background-color: rgba(255, 255, 255, 0.5); /* Poloprůhledné bílé pozadí */
+            padding: 25px; /* Zvětšené odsazení pro zřetelný rámeček */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             text-align: center;
             position: relative;
             overflow: hidden;
-            display: flex;
+            display: flex; /* Bude flex kontejnerem pro centrování gridu */
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -100,11 +100,11 @@
             overflow: hidden;
             outline: none;
 
-            /* ZMĚNĚNO: Vizuální styly přesunuty sem z .container */
-            background-color: rgba(255, 255, 255, 0.5); /* Poloprůhledné bílé pozadí */
-            padding: 15px; /* Odsazení uvnitř juxtapose rámečku */
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            /* ZMĚNĚNO: Odebrány vizuální styly - nyní jsou na .container */
+            /* background-color: rgba(255, 255, 255, 0.5); */
+            /* padding: 15px; */
+            /* border-radius: 12px; */
+            /* box-shadow: 0 4px 20px rgba(0,0,0,0.1); */
         }
         .juxtapose-wrapper:focus {
             outline: none;
@@ -190,7 +190,7 @@
                     "frame1 juxtapose frame2"; /* Rozložení pro landscape */
                 grid-template-columns: auto 1fr auto; /* auto pro rámečky, 1fr pro juxtapose */
                 grid-template-rows: 1fr; /* Jeden řádek */
-                gap: 20px; /* Mezera mezi prvky v landscape */
+                gap: 30px; /* ZMĚNĚNO: Zvětšená mezera pro landscape */
                 align-items: center; /* Vertikálně vycentruje prvky */
                 justify-items: center; /* Horizontálně vycentruje prvky v buňkách */
             }
@@ -203,12 +203,12 @@
             }
             /* Upraví velikost juxtapose-wrapper v landscape */
             .juxtapose-wrapper {
-                max-width: 60vw; /* Omezení šířky juxtapose vzhledem k obrazovce */
+                max-width: 75vw; /* ZMĚNĚNO: Větší max. šířka pro juxtapose */
                 min-width: 300px;
             }
             /* Upraví velikost rámečků v landscape */
             .ramecek-img {
-                max-width: 150px; /* Pevnější maximální šířka pro rámečky na bocích */
+                max-width: 200px; /* ZMĚNĚNO: Větší max. šířka pro rámečky na bocích */
             }
         }
 
