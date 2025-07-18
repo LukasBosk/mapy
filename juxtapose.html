@@ -38,7 +38,7 @@
         }
         .header h1 {
             color: white; /* Barva nadpisu bílá */
-            font-size: 1.8em; /* Menší velikost písma nadpisu, upravte dle potřeby */
+            font-size: 1.35em; /* ZMĚNĚNO: Menší velikost písma nadpisu (75% z 1.8em) */
             margin: 0; /* Odstranění výchozího marginu h1 */
         }
         @media (max-width: 600px) { /* Přizpůsobení pro menší obrazovky */
@@ -65,62 +65,57 @@
             gap: 20px;
             position: relative;
             overflow: hidden; /* For the juxtapose effect */
-            height: 600px; /* Fixed height for the map container */
+            flex-grow: 1; /* Povolí kontejneru, aby se roztáhl */
+            max-height: calc(100vh - 200px); /* Maximální výška na základě výšky obrazovky (přibližná mezera pro header/footer) */
+            height: auto; /* Dovolí výšce, aby se přizpůsobila obsahu */
         }
-        /* PŮVODNÍ STYL h1 ODSTRANĚN, PROTOŽE JE NYNÍ ŘÍZEN .header h1 */
-        /* h1 {
-            color: #1a73e8;
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        } */
         .juxtapose-wrapper {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: auto; /* Dovolí výšce, aby se přizpůsobila aspect-ratio */
+            aspect-ratio: 2 / 3; /* Poměr stran obrázku */
+            min-height: 300px; /* Minimální výška, aby se příliš nezmenšil */
             cursor: ew-resize;
             overflow: hidden;
-            outline: none; /* Odstraní modrý rámeček při focusu/kliknutí */
+            outline: none;
         }
         .juxtapose-wrapper:focus {
-            outline: none; /* Zajistí odstranění i pro focus, pokud by se prvek dal fokusovat */
+            outline: none;
         }
         .juxtapose-image-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100%; /* Vyplní rodičovský element s aspect-ratio */
         }
         .juxtapose-image-container img {
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* ZMĚNĚNO: Původně cover, nyní contain pro zabránění oříznutí */
+            object-fit: contain; /* Zajišťuje, že se obrázek neořízne */
             object-position: center;
             position: absolute;
             top: 0;
             left: 0;
         }
         .juxtapose-image-container.after {
-            z-index: 2; /* Ensure 'after' image is on top for clipping */
-            /* clip-path bude dynamicky nastaven JS */
+            z-index: 2;
         }
         .juxtapose-image-container.before {
-            z-index: 1; /* 'Before' image is underneath */
-            /* clip-path bude dynamicky nastaven JS */
+            z-index: 1;
         }
 
         .juxtapose-handle {
             position: absolute;
             top: 0;
-            left: 50%; /* Initial position */
+            left: 50%;
             width: 4px;
             height: 100%;
             background-color: #4285f4;
             z-index: 3;
             transform: translateX(-50%);
-            outline: none; /* Odstraní modrý rámeček i pro úchyt */
+            outline: none;
         }
         .juxtapose-handle::before,
         .juxtapose-handle::after {
@@ -145,22 +140,22 @@
         }
         /* Styl pro tlačítko Zpět */
         .back-button {
-            position: fixed; /* Pevná pozice na obrazovce */
-            bottom: 20px; /* 20px odspodu */
-            right: 20px; /* 20px zprava */
-            background-color: rgba(255, 255, 255, 0.9); /* Průhlednější bílé pozadí */
-            backdrop-filter: blur(10px); /* Efekt rozostření */
-            color: #1a73e8; /* Text modrý, aby vynikl */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #1a73e8;
             padding: 10px 15px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
             font-weight: bold;
-            text-decoration: none; /* Pro odkazy */
+            text-decoration: none;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
-            z-index: 1000; /* Zajistí, že je tlačítko nad ostatním obsahem */
+            z-index: 1000;
         }
         .back-button:hover {
             background-color: rgba(255, 255, 255, 0.95);
@@ -174,8 +169,10 @@
     </style>
 </head>
 <body>
-    <div class="header"> <img src="./logo.png" alt="Logo Muzea regionu Boskovicka">
-        <h1>Vývoj osídlení mladší/pozdní doba bronzová</h1> </div>
+    <div class="header">
+        <img src="./logo.png" alt="Logo Muzea regionu Boskovicka">
+        <h1>Vývoj osídlení mladší/pozdní doba bronzová</h1>
+    </div>
 
     <div class="container">
         <div class="juxtapose-wrapper" id="juxtaposeMap">
